@@ -148,3 +148,15 @@ fn children() {
     assert!(tree.children(18).map(|node| node.value).eq([]));
     assert!(tree.children(19).map(|node| node.value).eq([]));
 }
+
+/// Test first & last.
+#[test]
+fn first_last() {
+    let tree = build();
+    assert_eq!(tree.first().unwrap().value, 0);
+    assert_eq!(tree.last().unwrap().value, 18);
+
+    let empty = Tree::<usize, i32>::new();
+    assert!(empty.first().is_none());
+    assert!(empty.last().is_none());
+}

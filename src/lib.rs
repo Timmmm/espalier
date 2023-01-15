@@ -124,18 +124,32 @@ where
         self.nodes.get_mut(id.into())
     }
 
-    /// Get a reference to the root node (or `None` if the tree is empty).
-    /// It is possible to have a tree with multiple roots, but this only
-    /// returns the first one.
-    pub fn root(&self) -> Option<&Node<K, V>> {
-        self.nodes.get(0)
+    /// Get a reference to the first node (or `None` if the tree is empty).
+    /// This will normally be the tree's only root node but it is possible
+    /// to have trees with multiple roots.
+    pub fn first(&self) -> Option<&Node<K, V>> {
+        self.nodes.first()
     }
 
-    /// Get a mutable reference to the root node (or `None` if the tree is empty).
-    /// It is possible to have a tree with multiple roots, but this only
-    /// returns the first one.
-    pub fn root_mut(&mut self) -> Option<&mut Node<K, V>> {
-        self.nodes.get_mut(0)
+    /// Get a mutable reference to the first node (or `None` if the tree is empty).
+    /// This will normally be the tree's only root node but it is possible
+    /// to have trees with multiple roots.
+    pub fn first_mut(&mut self) -> Option<&mut Node<K, V>> {
+        self.nodes.first_mut()
+    }
+
+    /// Get a reference to the last node (or `None` if the tree is empty).
+    /// This is the "current" node. If you call push() it will add a child
+    /// to this node.
+    pub fn last(&self) -> Option<&Node<K, V>> {
+        self.nodes.last()
+    }
+
+    /// Get a mutable reference to the last node (or `None` if the tree is empty).
+    /// This is the "current" node. If you call push() it will add a child
+    /// to this node.
+    pub fn last_mut(&mut self) -> Option<&mut Node<K, V>> {
+        self.nodes.last_mut()
     }
 
     /// Iterate through all the tree nodes in the order they were added (which
@@ -148,6 +162,12 @@ where
     /// order they were added (which must be pre-order / depth first).
     pub fn into_iter(self) -> impl Iterator<Item = Node<K, V>> {
         self.nodes.into_iter()
+    }
+
+    /// Get a slice of all nodes in the tree in the order they were added
+    /// (which must be pre-order / depth-first).
+    pub fn all(&self) -> &[Node<K, V>] {
+        self.nodes.as_slice()
     }
 
     /// Get a slice of all the descendents of a node.
