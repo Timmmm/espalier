@@ -100,26 +100,26 @@ fn num_descendants() {
 fn parents() {
     let tree = build();
 
-    assert!(tree.parents(0).map(|node| node.value).eq([]));
-    assert!(tree.parents(1).map(|node| node.value).eq([0]));
-    assert!(tree.parents(2).map(|node| node.value).eq([1, 0]));
-    assert!(tree.parents(3).map(|node| node.value).eq([0]));
-    assert!(tree.parents(4).map(|node| node.value).eq([3, 0]));
-    assert!(tree.parents(5).map(|node| node.value).eq([4, 3, 0]));
-    assert!(tree.parents(6).map(|node| node.value).eq([3, 0]));
-    assert!(tree.parents(7).map(|node| node.value).eq([0]));
-    assert!(tree.parents(8).map(|node| node.value).eq([7, 0]));
-    assert!(tree.parents(9).map(|node| node.value).eq([8, 7, 0]));
-    assert!(tree.parents(10).map(|node| node.value).eq([8, 7, 0]));
-    assert!(tree.parents(11).map(|node| node.value).eq([7, 0]));
-    assert!(tree.parents(12).map(|node| node.value).eq([11, 7, 0]));
-    assert!(tree.parents(13).map(|node| node.value).eq([11, 7, 0]));
-    assert!(tree.parents(14).map(|node| node.value).eq([0]));
-    assert!(tree.parents(15).map(|node| node.value).eq([]));
-    assert!(tree.parents(16).map(|node| node.value).eq([15]));
-    assert!(tree.parents(17).map(|node| node.value).eq([16, 15]));
-    assert!(tree.parents(18).map(|node| node.value).eq([15]));
-    assert!(tree.parents(19).map(|node| node.value).eq([]));
+    assert!(tree.parents(0).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.parents(1).map(|(_id, node)| node.value).eq([0]));
+    assert!(tree.parents(2).map(|(_id, node)| node.value).eq([1, 0]));
+    assert!(tree.parents(3).map(|(_id, node)| node.value).eq([0]));
+    assert!(tree.parents(4).map(|(_id, node)| node.value).eq([3, 0]));
+    assert!(tree.parents(5).map(|(_id, node)| node.value).eq([4, 3, 0]));
+    assert!(tree.parents(6).map(|(_id, node)| node.value).eq([3, 0]));
+    assert!(tree.parents(7).map(|(_id, node)| node.value).eq([0]));
+    assert!(tree.parents(8).map(|(_id, node)| node.value).eq([7, 0]));
+    assert!(tree.parents(9).map(|(_id, node)| node.value).eq([8, 7, 0]));
+    assert!(tree.parents(10).map(|(_id, node)| node.value).eq([8, 7, 0]));
+    assert!(tree.parents(11).map(|(_id, node)| node.value).eq([7, 0]));
+    assert!(tree.parents(12).map(|(_id, node)| node.value).eq([11, 7, 0]));
+    assert!(tree.parents(13).map(|(_id, node)| node.value).eq([11, 7, 0]));
+    assert!(tree.parents(14).map(|(_id, node)| node.value).eq([0]));
+    assert!(tree.parents(15).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.parents(16).map(|(_id, node)| node.value).eq([15]));
+    assert!(tree.parents(17).map(|(_id, node)| node.value).eq([16, 15]));
+    assert!(tree.parents(18).map(|(_id, node)| node.value).eq([15]));
+    assert!(tree.parents(19).map(|(_id, node)| node.value).eq([]));
 }
 
 /// Check children iterators give the right sequences.
@@ -127,26 +127,26 @@ fn parents() {
 fn children() {
     let tree = build();
 
-    assert!(tree.children(0).map(|node| node.value).eq([1, 3, 7, 14]));
-    assert!(tree.children(1).map(|node| node.value).eq([2]));
-    assert!(tree.children(2).map(|node| node.value).eq([]));
-    assert!(tree.children(3).map(|node| node.value).eq([4, 6]));
-    assert!(tree.children(4).map(|node| node.value).eq([5]));
-    assert!(tree.children(5).map(|node| node.value).eq([]));
-    assert!(tree.children(6).map(|node| node.value).eq([]));
-    assert!(tree.children(7).map(|node| node.value).eq([8, 11]));
-    assert!(tree.children(8).map(|node| node.value).eq([9, 10]));
-    assert!(tree.children(9).map(|node| node.value).eq([]));
-    assert!(tree.children(10).map(|node| node.value).eq([]));
-    assert!(tree.children(11).map(|node| node.value).eq([12, 13]));
-    assert!(tree.children(12).map(|node| node.value).eq([]));
-    assert!(tree.children(13).map(|node| node.value).eq([]));
-    assert!(tree.children(14).map(|node| node.value).eq([]));
-    assert!(tree.children(15).map(|node| node.value).eq([16, 18]));
-    assert!(tree.children(16).map(|node| node.value).eq([17]));
-    assert!(tree.children(17).map(|node| node.value).eq([]));
-    assert!(tree.children(18).map(|node| node.value).eq([]));
-    assert!(tree.children(19).map(|node| node.value).eq([]));
+    assert!(tree.children(0).map(|(_id, node)| node.value).eq([1, 3, 7, 14]));
+    assert!(tree.children(1).map(|(_id, node)| node.value).eq([2]));
+    assert!(tree.children(2).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(3).map(|(_id, node)| node.value).eq([4, 6]));
+    assert!(tree.children(4).map(|(_id, node)| node.value).eq([5]));
+    assert!(tree.children(5).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(6).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(7).map(|(_id, node)| node.value).eq([8, 11]));
+    assert!(tree.children(8).map(|(_id, node)| node.value).eq([9, 10]));
+    assert!(tree.children(9).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(10).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(11).map(|(_id, node)| node.value).eq([12, 13]));
+    assert!(tree.children(12).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(13).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(14).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(15).map(|(_id, node)| node.value).eq([16, 18]));
+    assert!(tree.children(16).map(|(_id, node)| node.value).eq([17]));
+    assert!(tree.children(17).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(18).map(|(_id, node)| node.value).eq([]));
+    assert!(tree.children(19).map(|(_id, node)| node.value).eq([]));
 }
 
 /// Test first & last.

@@ -275,7 +275,7 @@ where
     K: Into<usize>,
     usize: Into<K>,
 {
-    type Item = &'a Node<K, V>;
+    type Item = (K, &'a Node<K, V>);
 
     fn next(&mut self) -> Option<Self::Item> {
         self.tree.nodes.get(self.id).and_then(|node| {
@@ -283,7 +283,10 @@ where
                 None
             } else {
                 self.id = node.parent;
-                self.tree.nodes.get(self.id)
+                self.tree
+                    .nodes
+                    .get(self.id)
+                    .map(|node| (self.id.into(), node))
             }
         })
     }
@@ -295,12 +298,16 @@ pub struct ChildrenIter<'a, K, V> {
     tree: &'a Tree<K, V>,
 }
 
-impl<'a, K, V> Iterator for ChildrenIter<'a, K, V> {
-    type Item = &'a Node<K, V>;
+impl<'a, K, V> Iterator for ChildrenIter<'a, K, V>
+where
+    usize: Into<K>,
+{
+    type Item = (K, &'a Node<K, V>);
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.current_id <= self.max_id {
             let node = self.tree.nodes.get(self.current_id);
+            let id_and_node = node.map(|node| (self.current_id.into(), node));
             self.current_id += self
                 .tree
                 .nodes
@@ -308,7 +315,7 @@ impl<'a, K, V> Iterator for ChildrenIter<'a, K, V> {
                 .map(|node| node.num_descendants)
                 .unwrap_or_default()
                 + 1;
-            node
+            id_and_node
         } else {
             None
         }
