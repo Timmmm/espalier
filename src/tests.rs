@@ -112,8 +112,14 @@ fn parents() {
     assert!(tree.parents(9).map(|(_id, node)| node.value).eq([8, 7, 0]));
     assert!(tree.parents(10).map(|(_id, node)| node.value).eq([8, 7, 0]));
     assert!(tree.parents(11).map(|(_id, node)| node.value).eq([7, 0]));
-    assert!(tree.parents(12).map(|(_id, node)| node.value).eq([11, 7, 0]));
-    assert!(tree.parents(13).map(|(_id, node)| node.value).eq([11, 7, 0]));
+    assert!(tree
+        .parents(12)
+        .map(|(_id, node)| node.value)
+        .eq([11, 7, 0]));
+    assert!(tree
+        .parents(13)
+        .map(|(_id, node)| node.value)
+        .eq([11, 7, 0]));
     assert!(tree.parents(14).map(|(_id, node)| node.value).eq([0]));
     assert!(tree.parents(15).map(|(_id, node)| node.value).eq([]));
     assert!(tree.parents(16).map(|(_id, node)| node.value).eq([15]));
@@ -127,7 +133,10 @@ fn parents() {
 fn children() {
     let tree = build();
 
-    assert!(tree.children(0).map(|(_id, node)| node.value).eq([1, 3, 7, 14]));
+    assert!(tree
+        .children(0)
+        .map(|(_id, node)| node.value)
+        .eq([1, 3, 7, 14]));
     assert!(tree.children(1).map(|(_id, node)| node.value).eq([2]));
     assert!(tree.children(2).map(|(_id, node)| node.value).eq([]));
     assert!(tree.children(3).map(|(_id, node)| node.value).eq([4, 6]));
@@ -168,4 +177,14 @@ fn test_traits() {
     let tree2 = tree.clone();
     dbg!(tree2);
     dbg!(tree.first());
+}
+/// Test up.
+#[test]
+fn up() {
+    let mut tree = Tree::<usize, i32>::new();
+    tree.push(0);
+    tree.push(1);
+    assert_eq!(tree.up(), Some(0));
+    assert_eq!(tree.up(), None);
+    assert_eq!(tree.up(), None);
 }

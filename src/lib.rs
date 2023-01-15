@@ -147,7 +147,8 @@ where
     /// add more nodes you will end up with a tree with multiple root nodes.
     /// this should work fine but might be confusing!
     pub fn up(&mut self) -> Option<K> {
-        self.parent_stack.pop().map(Into::into)
+        self.parent_stack.pop();
+        self.parent_stack.last().map(|&id| id.into())
     }
 
     /// Get a reference to a node. Returns `None` for invalid IDs.
