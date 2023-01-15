@@ -1,6 +1,6 @@
 # Espalier
 
-Espalier is a very simple library (~200 lines) for flattened trees. While you can store a tree as `struct Node(Vec<Node>)` it can be difficult to work with due to Rust's borrowing rules, and also slow since each node needs a new `Vec`.
+Espalier is a very simple library (~300 lines) for flattened trees. While you can store a tree as `struct Node(Vec<Node>)` it can be difficult to work with due to Rust's borrowing rules, and also slow since each node needs a new `Vec`.
 
 The obvious solution is to flatten the tree into a single `Vec`.
 
