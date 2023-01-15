@@ -160,3 +160,12 @@ fn first_last() {
     assert!(empty.first().is_none());
     assert!(empty.last().is_none());
 }
+
+/// Basic test to ensure traits are inherited.
+#[test]
+fn test_traits() {
+    let tree = build();
+    let tree2 = tree.clone();
+    dbg!(tree2);
+    dbg!(tree.first());
+}

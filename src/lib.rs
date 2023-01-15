@@ -1,4 +1,4 @@
-use std::{iter::Iterator, marker::PhantomData};
+use std::{fmt::Debug, iter::Iterator, marker::PhantomData};
 
 #[cfg(test)]
 mod tests;
@@ -33,6 +33,39 @@ where
         self.num_descendants
     }
 }
+
+impl<K, V: Debug> Debug for Node<K, V> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Node")
+            .field("value", &self.value)
+            .field("parent", &self.parent)
+            .field("num_descendants", &self.num_descendants)
+            .finish()
+    }
+}
+
+impl<K, V: PartialEq> PartialEq for Node<K, V> {
+    fn eq(&self, other: &Self) -> bool {
+        self.value == other.value
+            && self.parent == other.parent
+            && self.num_descendants == other.num_descendants
+    }
+}
+
+impl<K, V: Clone> Clone for Node<K, V> {
+    fn clone(&self) -> Self {
+        Self {
+            value: self.value.clone(),
+            parent: self.parent.clone(),
+            num_descendants: self.num_descendants.clone(),
+            _key_type: PhantomData,
+        }
+    }
+}
+
+impl<K, V: Eq> Eq for Node<K, V> {}
+
+impl<K, V: Copy> Copy for Node<K, V> {}
 
 /// A flattened tree. The nodes are stored in pre-order (depth first order).
 pub struct Tree<K, V> {
@@ -202,6 +235,32 @@ where
         }
     }
 }
+
+impl<K, V: Debug> Debug for Tree<K, V> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Tree")
+            .field("nodes", &self.nodes)
+            .field("parent_stack", &self.parent_stack)
+            .finish()
+    }
+}
+
+impl<K, V: PartialEq> PartialEq for Tree<K, V> {
+    fn eq(&self, other: &Self) -> bool {
+        self.nodes == other.nodes && self.parent_stack == other.parent_stack
+    }
+}
+
+impl<K, V: Clone> Clone for Tree<K, V> {
+    fn clone(&self) -> Self {
+        Self {
+            nodes: self.nodes.clone(),
+            parent_stack: self.parent_stack.clone(),
+        }
+    }
+}
+
+impl<K, V: Eq> Eq for Tree<K, V> {}
 
 pub struct ParentIter<'a, K, V> {
     id: usize,
