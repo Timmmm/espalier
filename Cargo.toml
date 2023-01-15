@@ -1,0 +1,13 @@
+[package]
+name = "espalier"
+version = "0.1.0"
+edition = "2021"
+authors = ["Tim Hutt"]
+description = "Very simple flattened tree structure."
+documentation = "https://docs.rs/espalier"
+repository = "https://github.com/timmmm/espalier"
+license = "MIT/Apache-2.0"
+keywords = ["tree", "vec", "flat"]
+categories = ["data-structures"]
+
+[dependencies]
