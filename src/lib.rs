@@ -138,13 +138,16 @@ where
     }
 
     /// Set the current node to its parent. It's safe to call this if the
-    /// the tree is empty, in which case nothign will change.
+    /// the tree is empty, in which case nothing will change.
+    ///
+    /// It returns the ID of the new "current" node or None if we have `up()`d
+    /// all the way to the top.
     ///
     /// It is ok to call this if the current node is the root node. If you then
     /// add more nodes you will end up with a tree with multiple root nodes.
     /// this should work fine but might be confusing!
-    pub fn up(&mut self) {
-        self.parent_stack.pop();
+    pub fn up(&mut self) -> Option<K> {
+        self.parent_stack.pop().map(Into::into)
     }
 
     /// Get a reference to a node. Returns `None` for invalid IDs.
